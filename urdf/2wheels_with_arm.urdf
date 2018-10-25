@@ -2,7 +2,7 @@
 <robot name="2wheels" xmlns:xacro="http://www.ros.org/wiki/xacro">
   
   <!-- Chassis link -->
-  <link name="link_chassis">
+  <link name="base_link">
     <!-- pose and inertial -->
     <pose>0 0 0 0 0 0</pose>
     <inertial>
@@ -18,7 +18,7 @@
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 0 0.0" xyz="0.0 0 0.0"/>
+      <origin rpy="0 0 -1.5708" xyz="0.0 0 0.0"/>
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/robotmodel.dae"/>
       </geometry>
@@ -28,12 +28,13 @@
   
   <!-- caster joint -->
   <joint name="joint_caster" type="continuous">
-    <origin rpy="0 0 0" xyz="0.008 0.085 -0.015"/>
+    <origin rpy="0 0 0" xyz="0.085 -0.008 -0.015"/>
+    <!--origin rpy="0 0 0" xyz="0.008 0.085 -0.015"/-->
     <child link="caster_wheel"/>
-    <parent link="link_chassis"/>
+    <parent link="base_link"/>
     <axis rpy="0 0 0" xyz="0 0 1"/>
-    <limit effort="1000" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <limit effort="1000" velocity="10"/>
+    <joint_properties damping="0.0" friction="0.01"/>
   </joint>
 
   
@@ -89,10 +90,11 @@
   <!-- XXXXXXXXXXX -->
   <!-- Joint between right wheel and chassis -->
   <joint name="joint_right_wheel" type="continuous">
-    <origin rpy="0 1.570 0" xyz="0.11 -0.057 0.012"/>
+    <origin rpy="-1.5707 0  0" xyz="-0.0572 -0.11 0.012"/>
+    <!--origin rpy="0 1.570 0" xyz="0.11 -0.057 0.012"/-->
     <child link="link_right_wheel"/>
-    <parent link="link_chassis"/>
-    <axis rpy="0 0 0" xyz="0 0 -1"/>
+    <parent link="base_link"/>
+    <axis rpy="0 0 0" xyz="0 0 1"/>
     <limit effort="1000" velocity="100"/>
     <joint_properties damping="0.01" friction="0.01"/>
   </joint>
@@ -132,10 +134,11 @@
    <!-- Joint between LEFT wheel and chassis -->
   <joint name="joint_left_wheel" type="continuous">
         <!-- Previous  xyz="-0.095 -0.055 0.01 -->
-        <origin rpy="0 -1.570 0" xyz="-0.11 -0.057 0.012"/> <!-- PAY ATTENTION NEGATIVE 'y' -->
+        <origin rpy="1.5707 0  0" xyz="-0.0572 0.11  0.012"/>
+        <!--origin rpy="0 -1.570 0" xyz="-0.11 -0.057 0.012"/--> <!-- PAY ATTENTION NEGATIVE 'y' -->
         <child link="link_left_wheel"/>
-        <parent link="link_chassis"/>
-        <axis rpy="0 0 0" xyz="0 0 1"/>
+        <parent link="base_link"/>
+        <axis rpy="0 0 0" xyz="0 0 -1"/>
         <limit effort="1000" velocity="100"/>
         <joint_properties damping="0.01" friction="0.01"/>
   </joint>
@@ -199,7 +202,7 @@
   <!-- joint to attach the laser to the chassis -->
   <joint name="joint_sensor_laser" type="fixed">
     <origin xyz="0.0 0 0.07" rpy="0 0 0"/>
-    <parent link="link_chassis"/>
+    <parent link="base_link"/>
     <child link="sensor_laser"/>
   </joint>
 
@@ -217,7 +220,7 @@
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>link_chassis</robotBaseFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
     </plugin>
   </gazebo>
 
@@ -248,7 +251,7 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/m2wr/laser/scan</topicName>
+        <topicName>/scan</topicName>
         <frameName>sensor_laser</frameName>
       </plugin>
     </sensor>
@@ -551,8 +554,8 @@
   XXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
   <joint name="camera_joint" type="fixed">
     <axis xyz="0 0 0" />
-    <origin xyz="0.0 0.11 0.02" rpy="0 0 1.5708"/>
-    <parent link="link_chassis"/>
+    <origin xyz="0.11 0.0 0.02" rpy="0 0 0"/>
+    <parent link="base_link"/>
     <child link="camera_link"/>
   </joint>
  <!-- Camera -->
