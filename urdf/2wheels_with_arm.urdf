@@ -282,7 +282,7 @@
     
     <!-- This will attach the arm to the laser link -->
   <joint name="arm_to_laser" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.05"/>
+    <origin rpy="0 0 -1.5707" xyz="0 0 0.05"/>
     <parent link="sensor_laser"/>
     <child  link="arm_base_link"/>
   </joint>
