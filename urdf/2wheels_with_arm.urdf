@@ -176,7 +176,7 @@
 
 
   <!-- laser link -->
-  <link name="sensor_laser">
+  <link name="base_laser_link">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <mass value="0.25" />
@@ -200,10 +200,10 @@
   </link>
 
   <!-- joint to attach the laser to the chassis -->
-  <joint name="joint_sensor_laser" type="fixed">
+  <joint name="joint_base_laser_link" type="fixed">
     <origin xyz="0.0 0 0.07" rpy="0 0 0"/>
     <parent link="base_link"/>
-    <child link="sensor_laser"/>
+    <child link="base_laser_link"/>
   </joint>
 
   <!-- Plugin for the wheels -->
@@ -225,7 +225,7 @@
   </gazebo>
 
     <!-- plugin for the laser -->
-   <gazebo reference="sensor_laser">
+   <gazebo reference="base_laser_link">
     <sensor type="ray" name="head_hokuyo_sensor">
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
@@ -252,7 +252,7 @@
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
         <topicName>/scan</topicName>
-        <frameName>sensor_laser</frameName>
+        <frameName>base_laser_link</frameName>
       </plugin>
     </sensor>
   </gazebo>
@@ -283,7 +283,7 @@
     <!-- This will attach the arm to the laser link -->
   <joint name="arm_to_laser" type="fixed">
     <origin rpy="0 0 -1.5707" xyz="0 0 0.04"/>
-    <parent link="sensor_laser"/>
+    <parent link="base_laser_link"/>
     <child  link="arm_base_link"/>
   </joint>
   
