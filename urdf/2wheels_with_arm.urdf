@@ -414,14 +414,14 @@
   <joint name="right_grip_joint" type="prismatic">
     <parent link="arm_link_04"/>
     <child link="right_grip_link"/>
-    <origin  xyz="-0.02 0 0" rpy="0 -1.570796 0"/>
+    <origin  xyz="0.0 0 0" rpy="0 -1.570796 0"/>
     <axis xyz="0 0 1"/>
-    <limit velocity="1.0" effort="1000" lower="-0.04" upper="0.04" />
+    <limit velocity="1.0" effort="1000" lower="0" upper="0.05" />
   </joint>
   <!--  right Grip link sub -->
   <link name="right_grip_link">
     <collision>
-  <origin xyz="0 0 0.01" rpy="1.5707 3.14159 3.14159"/> 
+  <origin xyz="0 0 0.011" rpy="1.5707 3.14159 3.14159"/> 
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -445,25 +445,25 @@
   </link>
 
  
-<!--  Grip joint -->
+<!--  LEFT Grip joint -->
   <joint name="left_grip_joint" type="prismatic">
     <parent link="arm_link_04"/>
     <child link="left_grip_link"/>
-    <origin xyz="0.0 0.0 0" rpy="0 1.570796 0"/>
+    <origin xyz="0.0 0.0 0" rpy="3.14159 -1.570796 0"/>
     <axis xyz="0 0 1"/>
-    <limit velocity="6.5" effort="1000" lower="-0.01" upper="0.035" />
+    <limit velocity="0.5" effort="1000" lower="0" upper="0.05" />
 </joint>
 <!--  Grip link -->
   <link name="left_grip_link">
     <collision>
-      <origin xyz="0 0 0.0" rpy="1.5707 0 0"/>   <!-- 'x' value indicates aperture of gripper -->
+     <origin xyz="0 0 0.011" rpy="1.5707 0 0 "/>    <!-- 'x' value indicates aperture of gripper -->
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
     <visual>
-     <origin xyz="0 0 0.0" rpy="-1.5707 0 0 "/> 
+     <origin xyz="0 0 0.011" rpy="1.5707 0 0 "/> 
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.001 0.001 0.001"/>
       </geometry>
