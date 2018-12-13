@@ -226,22 +226,22 @@
 
     <!-- plugin for the laser -->
    <gazebo reference="base_laser_link">
-    <sensor type="ray" name="head_hokuyo_sensor">
+    <sensor type="ray" name="head_rplidar">
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
-      <update_rate>20</update_rate>
+      <update_rate>10</update_rate><!--10 hz as the RP lidar-->
       <ray>
         <scan>
           <horizontal>
             <samples>720</samples>
             <resolution>1</resolution>
-            <min_angle>-1.570796</min_angle>
-            <max_angle>1.570796</max_angle>
+            <min_angle>-3.14</min_angle>
+            <max_angle>3.14</max_angle>
           </horizontal>
         </scan>
         <range>
-          <min>0.10</min>
-          <max>10.0</max>
+          <min>0.15</min>
+          <max>8.0</max>
           <resolution>0.01</resolution>
         </range>
         <noise>
@@ -258,37 +258,46 @@
   </gazebo>
 
 <!-- ARM DEFINITION STARTS HERE -->
+    <!-- Joint: This will attach the arm to the laser link -->
+  <joint name="laser_to_arm_base" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.025"/>
+    <parent link="base_laser_link"/>
+    <child  link="arm_base_link"/>
+  </joint>
 
     <!-- base of the arm -->
     <link name="arm_base_link">
         <inertial>
             <mass value="0.05"/>
-            <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
             <inertia ixx="0.000021667" ixy="0" ixz="0" iyy="0.000021667" iyz="0" izz="0.000021667"/>
         </inertial>
         <collision>
-            <origin rpy="0 0 0 " xyz="0 0 0" />
+            <origin rpy="0 0 0 " xyz="0 0 0.015" />
             <geometry>
-                <box size="0.05 0.05 0.05" />
+                <box size="0.05 0.05 0.03" />
             </geometry>
         </collision>
         <visual>
-            <origin rpy="0 0 0 " xyz="0 0 0" />
+            <origin rpy="0 0 0 " xyz="0 0 0.015" />
             <geometry>
-                <box size="0.05 0.05 0.05" />
+                <box size="0.05 0.05 0.03" />
             </geometry>
         </visual>
     </link>
-    
-    <!-- This will attach the arm to the laser link -->
-  <joint name="arm_to_laser" type="fixed">
-    <origin rpy="0 0 -1.5707" xyz="0 0 0.04"/>
-    <parent link="base_laser_link"/>
-    <child  link="arm_base_link"/>
-  </joint>
-  
-  
-      <!-- First link of the arm -->
+ 
+ 
+ 
+ 
+    <!--Joint between base and link 1 -->
+    <joint name="arm_joint_01" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.2"/>
+        <origin rpy="0 0 0" xyz="0 0 0.03"/>
+        <parent link="arm_base_link"/>
+        <child link="arm_link_01"/>
+    </joint>
+    <!-- First link of the arm -->
     <link name="arm_link_01">
          <inertial>
             <mass value="0.0125"/>
@@ -296,28 +305,28 @@
             <inertia ixx="0.0000050279" ixy="0" ixz="0" iyy="0.0000050279" iyz="0" izz="0.0000035225"/>
         </inertial>
         <collision>
-            <origin rpy="0 0 0 " xyz="0 0 0.0" />
+            <origin rpy="0 0 0 " xyz="0 0 0.03" />
             <geometry>
                 <cylinder radius="0.017" length="0.06"/>
             </geometry>
         </collision>
         <visual>
-            <origin rpy="0 0 0 " xyz="0 0 0.0" />
+            <origin rpy="0 0 0 " xyz="0 0 0.03" />
             <geometry>
                 <cylinder radius="0.017" length="0.06"/>
             </geometry>
         </visual>
     </link>
     
-    <joint name="arm_joint_01" type="revolute">
+    <!-- Joint 02: between link1 and link2  -->
+    <joint name="arm_joint_02" type="revolute">
         <axis xyz="0 0 1"/>
-        <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.2"/>
-        <origin rpy="0 0 0" xyz="0 0 0.04"/>
-        <parent link="arm_base_link"/>
-        <child link="arm_link_01"/>
+        <limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
+        <origin rpy="1.5707 0 0" xyz="0 0 0.05"/>
+        <parent link="arm_link_01"/>
+        <child link="arm_link_02"/>
     </joint>
-    
-      <!-- Second link of the arm -->
+    <!-- Second link of the arm -->
     <link name="arm_link_02">
          <inertial>
             <mass value="0.0125"/>
@@ -325,28 +334,29 @@
             <inertia ixx="0.0000050279" ixy="0" ixz="0" iyy="0.0000050279" iyz="0" izz="0.0000035225"/>
         </inertial>
         <collision>
-            <origin rpy="0 0 0 " xyz="0 0 0.02" />
+            <origin rpy="0 0 0 " xyz="0.05 0 0.0" />
             <geometry>
-                <cylinder radius="0.010" length="0.06"/>
+                <box size="0.1 0.03 0.02" />
             </geometry>
         </collision>
         <visual>
-            <origin rpy="0 0 0 " xyz="0 0 0.02" />
+            <origin rpy="0 0 0 " xyz="0.05 0 0.0" />
             <geometry>
-                <cylinder radius="0.010" length="0.06"/>
+                <box size="0.1 0.03 0.02" />
             </geometry>
         </visual>
     </link>
     
-    <joint name="arm_joint_02" type="revolute">
-        <axis xyz="1 0 0"/>
+<!-- Joint 3: between link2 and link3 -->
+    <joint name="arm_joint_03" type="revolute">
+        <axis xyz="0  0  1"/>
         <limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
-        <origin rpy="0 0 0" xyz="0 0 0.01"/>
-        <parent link="arm_link_01"/>
-        <child link="arm_link_02"/>
+        <origin rpy="0 0 0" xyz="0.1 0 0"/>
+        <parent link="arm_link_02"/>
+        <child link="arm_link_03"/>
     </joint>
     
-              <!-- Third link of the arm -->
+    <!-- 3rd link of the arm -->
     <link name="arm_link_03">
          <inertial>
             <mass value="0.0125"/>
@@ -354,28 +364,29 @@
             <inertia ixx="0.0000050279" ixy="0" ixz="0" iyy="0.0000050279" iyz="0" izz="0.0000035225"/>
         </inertial>
         <collision>
-            <origin rpy="0 0 0 " xyz="0 0 0" />
+            <origin rpy="0 0 0 " xyz="0.05 0 0" />
             <geometry>
-                <cylinder radius="0.010" length="0.06"/>
+                <box size="0.1 0.03 0.02" />
             </geometry>
         </collision>
         <visual>
-            <origin rpy="1.5707 0 0 " xyz="0 -0.03 0" />
+            <origin rpy="0 0 0 " xyz="0.05 0 0" />
             <geometry>
-                <cylinder radius="0.010" length="0.06"/>
+                <box size="0.1 0.03 0.02" />
             </geometry>
         </visual>
     </link>
     
-    <joint name="arm_joint_03" type="revolute">
-        <axis xyz="1  0  0"/>
-        <limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
-        <origin rpy="0 0 0" xyz="0 0 0.04"/>
-        <parent link="arm_link_02"/>
-        <child link="arm_link_03"/>
+    <!-- Joint 4: between link3 and link4 -->
+    <joint name="arm_joint_04" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.5"/>
+        <origin rpy="0 1.570796 0" xyz="0.1 0 0.0"/>
+        <parent link="arm_link_03"/>
+        <child link="arm_link_04"/>
     </joint>
      
-    <!-- Fourth link of the arm -->
+    <!-- Fourth link of the arm (base of the gripper)-->
     <link name="arm_link_04">
          <inertial>
             <mass value="0.0125"/>
@@ -383,40 +394,41 @@
             <inertia ixx="0.0000050279" ixy="0" ixz="0" iyy="0.0000050279" iyz="0" izz="0.0000035225"/>
         </inertial>
         <collision>
-            <origin rpy="0 0 1.57 " xyz="0 0 0.06" />
+            <origin rpy="0 0 0 " xyz="0 0 0.0" />
             <geometry>
-                <box size="0.017 0.094 0.04" />
+                <box size="0.08 0.04 0.02  " />
             </geometry>
         </collision>
         <visual>
-            <origin rpy="0 0 1.57 " xyz="0 0 0.06" />
+            <origin rpy="0 0 0 " xyz="0 0 0.00" />
             <geometry>
-                 <box size="0.017 0.094 0.04" />
+                 <box size="0.08 0.04 0.02 " />
             </geometry>
         </visual>
     </link>
     
-    <joint name="arm_joint_04" type="revolute">
-        <axis xyz="1 0 0"/>
-        <limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.5"/>
-        <origin rpy="0 0 0" xyz="0 0 0.02"/>
-        <parent link="arm_link_03"/>
-        <child link="arm_link_04"/>
-    </joint>
+
 
 <!-- GRIPPER STARTS HERE -->
-
-  <!--  Grip link sub -->
+ <!--  right Grip joint sub -->
+  <joint name="right_grip_joint" type="prismatic">
+    <parent link="arm_link_04"/>
+    <child link="right_grip_link"/>
+    <origin  xyz="-0.02 0 0" rpy="0 -1.570796 0"/>
+    <axis xyz="0 0 1"/>
+    <limit velocity="1.0" effort="1000" lower="-0.04" upper="0.04" />
+  </joint>
+  <!--  right Grip link sub -->
   <link name="right_grip_link">
     <collision>
-      <origin xyz="-0.032 0 0.06" rpy="0 3.1415 -1.57"/>  <!-- 'x' value indicates aperture of gripper -->
+  <origin xyz="0 0 0.01" rpy="1.5707 3.14159 3.14159"/> 
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="-0.032 0 0.06" rpy="0 3.1415 -1.57"/>
+      <origin xyz="0 0 0.01" rpy="1.5707 3.14159 3.14159"/> 
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -425,33 +437,33 @@
 
     <inertial>
       <origin xyz="0 0 0" />
-      <mass value="0.005" />
-      <inertia ixx="0.0005" ixy="0.0" ixz="0.0"
-               iyy="0.0005" iyz="0.0"
-               izz="0.0005" />
+      <mass value="0.05" />
+      <inertia ixx="0.005" ixy="0.0" ixz="0.0"
+               iyy="0.005" iyz="0.0"
+               izz="0.005" />
     </inertial>
   </link>
 
-  <!--  Grip joint sub -->
-  <joint name="right_grip_joint" type="prismatic">
+ 
+<!--  Grip joint -->
+  <joint name="left_grip_joint" type="prismatic">
     <parent link="arm_link_04"/>
-    <child link="right_grip_link"/>
-    <origin xyz="-0.015 0.0 0" rpy="0 0 0"/>
-    <axis xyz="1 0 0"/>
+    <child link="left_grip_link"/>
+    <origin xyz="0.0 0.0 0" rpy="0 1.570796 0"/>
+    <axis xyz="0 0 1"/>
     <limit velocity="6.5" effort="1000" lower="-0.01" upper="0.035" />
-  </joint>
-
+</joint>
 <!--  Grip link -->
   <link name="left_grip_link">
     <collision>
-      <origin xyz="0.062 0 0.06" rpy="0 3.1415 -1.57"/>   <!-- 'x' value indicates aperture of gripper -->
+      <origin xyz="0 0 0.0" rpy="1.5707 0 0"/>   <!-- 'x' value indicates aperture of gripper -->
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="0.062 0 0.06" rpy="0 3.1415 -1.57"/>
+     <origin xyz="0 0 0.0" rpy="-1.5707 0 0 "/> 
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -467,14 +479,7 @@
     </inertial>
   </link>
 
-  <!--  Grip joint -->
-  <joint name="left_grip_joint" type="prismatic">
-    <parent link="arm_link_04"/>
-    <child link="left_grip_link"/>
-    <origin xyz="-0.015 0.0 0.0" rpy="0 0 0"/>
-    <axis xyz="-1 0 0"/>
-    <limit velocity="6.5" effort="1000" lower="-0.01" upper="0.035" />
-</joint>
+  
 
 <!-- Transmission 1 -->
   <transmission name="arm_joint_01_trans">
@@ -610,7 +615,7 @@
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>rrbot/camera1</cameraName>
+        <cameraName>two_wheels_robot/camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera_link</frameName>
