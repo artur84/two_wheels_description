@@ -198,6 +198,9 @@
       </geometry>
     </collision>
   </link>
+  <gazebo reference="base_laser_link"> <!--Color for the link -->
+      <material>Gazebo/Black</material>
+  </gazebo>
 
   <!-- joint to attach the laser to the chassis -->
   <joint name="joint_base_laser_link" type="fixed">
@@ -285,6 +288,9 @@
             </geometry>
         </visual>
     </link>
+    <gazebo reference="arm_base_link"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Red</material>
+    </gazebo>
  
  
  
@@ -317,11 +323,14 @@
             </geometry>
         </visual>
     </link>
+    <gazebo reference="arm_link_01"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Orange</material>
+    </gazebo>
     
     <!-- Joint 02: between link1 and link2  -->
     <joint name="arm_joint_02" type="revolute">
         <axis xyz="0 0 1"/>
-        <limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
+        <limit effort="10000.0" lower="-0.1" upper="1.5707" velocity="0.2"/>
         <origin rpy="1.5707 0 0" xyz="0 0 0.05"/>
         <parent link="arm_link_01"/>
         <child link="arm_link_02"/>
@@ -346,11 +355,14 @@
             </geometry>
         </visual>
     </link>
+    <gazebo reference="arm_link_02"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Orange</material>
+    </gazebo>
     
 <!-- Joint 3: between link2 and link3 -->
     <joint name="arm_joint_03" type="revolute">
         <axis xyz="0  0  1"/>
-        <limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
+        <limit effort="10000.0" lower="-0.1" upper="1.5707" velocity="0.2"/>
         <origin rpy="0 0 0" xyz="0.1 0 0"/>
         <parent link="arm_link_02"/>
         <child link="arm_link_03"/>
@@ -376,11 +388,14 @@
             </geometry>
         </visual>
     </link>
+    <gazebo reference="arm_link_03"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Orange</material>
+    </gazebo>
     
     <!-- Joint 4: between link3 and link4 -->
     <joint name="arm_joint_04" type="revolute">
         <axis xyz="0 0 1"/>
-        <limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.5"/>
+        <limit effort="10000.0" lower="-1.8" upper="1.8" velocity="0.5"/>
         <origin rpy="0 1.570796 0" xyz="0.1 0 0.0"/>
         <parent link="arm_link_03"/>
         <child link="arm_link_04"/>
@@ -402,10 +417,13 @@
         <visual>
             <origin rpy="0 0 0 " xyz="0 0 0.00" />
             <geometry>
-                 <box size="0.08 0.04 0.02 " />
+                 <box size="0.1 0.022 0.006 " />
             </geometry>
         </visual>
     </link>
+    <gazebo reference="arm_link_04"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Black</material>
+    </gazebo>
     
 
 
@@ -416,33 +434,35 @@
     <child link="right_grip_link"/>
     <origin  xyz="0.0 0 0" rpy="0 -1.570796 0"/>
     <axis xyz="0 0 1"/>
-    <limit velocity="1.0" effort="1000" lower="0" upper="0.05" />
+    <limit velocity="0.4" effort="100000" lower="0" upper="0.05" />
   </joint>
   <!--  right Grip link sub -->
   <link name="right_grip_link">
     <collision>
-  <origin xyz="0 0 0.011" rpy="1.5707 3.14159 3.14159"/> 
+  <origin xyz="0 0 0.005" rpy="1.5707 3.14159 3.14159"/> 
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="0 0 0.01" rpy="1.5707 3.14159 3.14159"/> 
+      <origin xyz="0 0 0.005" rpy="1.5707 3.14159 3.14159"/> 
       <geometry>
-        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.0005 0.0005 0.0005"/>
       </geometry>
-      <material name="grey"/>
     </visual>
 
     <inertial>
       <origin xyz="0 0 0" />
-      <mass value="0.05" />
-      <inertia ixx="0.005" ixy="0.0" ixz="0.0"
-               iyy="0.005" iyz="0.0"
-               izz="0.005" />
+      <mass value="0.001" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
     </inertial>
   </link>
+  <gazebo reference="right_grip_link"> <!--Color  -->
+      <material>Gazebo/Gold</material>
+    </gazebo>
 
  
 <!--  LEFT Grip joint -->
@@ -451,33 +471,35 @@
     <child link="left_grip_link"/>
     <origin xyz="0.0 0.0 0" rpy="3.14159 -1.570796 0"/>
     <axis xyz="0 0 1"/>
-    <limit velocity="0.5" effort="1000" lower="0" upper="0.05" />
+    <limit velocity="0.4" effort="100000" lower="0" upper="0.05" />
 </joint>
 <!--  Grip link -->
   <link name="left_grip_link">
     <collision>
-     <origin xyz="0 0 0.011" rpy="1.5707 0 0 "/>    <!-- 'x' value indicates aperture of gripper -->
+     <origin xyz="0 0 0.005" rpy="1.5707 0 0 "/>    <!-- 'x' value indicates aperture of gripper -->
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
     <visual>
-     <origin xyz="0 0 0.011" rpy="1.5707 0 0 "/> 
+     <origin xyz="0 0 0.005" rpy="1.5707 0 0 "/> 
       <geometry>
-        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.0005 0.0005 0.0005"/>
       </geometry>
-      <material name="grey"/>
     </visual>
 
     <inertial>
       <origin xyz="0 0 0" />
-      <mass value="0.01" />
+      <mass value="0.001" />
       <inertia ixx="0.001" ixy="0.0" ixz="0.0"
                iyy="0.001" iyz="0.0"
                izz="0.001" />
     </inertial>
   </link>
+   <gazebo reference="left_grip_link"> <!--Color  -->
+      <material>Gazebo/Gold</material>
+    </gazebo>
 
   
 
@@ -554,17 +576,20 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
 </transmission>
+
+
   <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   Simulation of a camera:
   XXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
-  <joint name="camera_joint" type="fixed">
-    <axis xyz="0 0 0" />
-    <origin xyz="0.11 0.0 0.02" rpy="0 0 0"/>
-    <parent link="base_link"/>
-    <child link="camera_link"/>
-  </joint>
+  <joint name="camera1_joint"  type="revolute">
+        <axis xyz="0 1 0"/>
+        <limit effort="100000.0" lower="-0.8" upper="0.3" velocity="0.2"/>
+         <origin xyz="0.11 0.0 0.04" rpy="0 0 0"/>
+        <parent link="base_link"/>
+         <child link="camera1_link"/>
+    </joint>
  <!-- Camera -->
-  <link name="camera_link">
+  <link name="camera1_link">
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -575,21 +600,32 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-    <box size="0.03 0.05 0.03"/>
+        <box size="0.03 0.05 0.03"/>
       </geometry>
-      <material name="Black_1">
-       <color rgba="0.0 0.0 0.0 1.0"/>
-     </material>
     </visual>
-
     <inertial>
-      <mass value="0.001" />
+      <mass value="0.04" />
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001" />
     </inertial>
   </link>
+  <gazebo reference="camera1_link"> <!--Color for the camera1_link -->
+      <material>Gazebo/Black</material>
+  </gazebo>
+  
+  <!-- Transmission camera -->
+  <transmission name="camera1_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="camera1_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_camera1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <!-- Plugin for the camera -->
-   <gazebo reference="camera_link">
+   <gazebo reference="camera1_link">
     <sensor type="camera" name="camera1">
       <update_rate>30.0</update_rate>
       <camera name="camera1">
@@ -612,7 +648,7 @@
           <stddev>0.007</stddev>
         </noise>
       </camera>
-      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+      <plugin name="camera1_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
         <cameraName>two_wheels_robot/camera1</cameraName>
