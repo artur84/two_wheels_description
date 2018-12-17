@@ -48,7 +48,7 @@
     <collision name="caster_front_collision">
       <origin rpy=" 0 0 0" xyz="0.0 0 0"/>
       <geometry>
-        <sphere radius="0.01"/>
+        <sphere radius="0.0051"/>
       </geometry>
       <surface>
         <friction>
@@ -64,7 +64,7 @@
     <visual name="caster_front_visual">
       <origin rpy=" 0 0 0" xyz="0.0 0 0"/>
       <geometry>
-        <sphere radius="0.0095"/>
+        <sphere radius="0.005"/>
       </geometry>
     </visual>
   </link>
@@ -74,7 +74,7 @@
     <kp value="10000000.0"/>
     <kd value="1.0"/>
     <fdir1 value="0 0 0"/>
-    <material>Gazebo/Grey</material>
+    <material>Gazebo/Black</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
   
@@ -204,7 +204,7 @@
 
   <!-- joint to attach the laser to the chassis -->
   <joint name="joint_base_laser_link" type="fixed">
-    <origin xyz="0.0 0 0.07" rpy="0 0 0"/>
+    <origin xyz="0.0 0 0.085" rpy="0 0.04 0"/>
     <parent link="base_link"/>
     <child link="base_laser_link"/>
   </joint>
@@ -236,10 +236,10 @@
       <ray>
         <scan>
           <horizontal>
-            <samples>720</samples>
+            <samples>1440</samples>
             <resolution>1</resolution>
-            <min_angle>-3.14</min_angle>
-            <max_angle>3.14</max_angle>
+            <min_angle>-3.141596</min_angle>
+            <max_angle>3.141596</max_angle>
           </horizontal>
         </scan>
         <range>
