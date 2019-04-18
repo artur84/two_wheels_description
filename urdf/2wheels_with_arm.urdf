@@ -6,7 +6,7 @@
     <!-- pose and inertial -->
     <pose>0 0 0 0 0 0</pose>
     <inertial>
-      <mass value="10.0"/>
+      <mass value="6.0"/>
       <origin rpy="0 0 0" xyz="0.01 0 0.03"/>
       <inertia ixx="0.007" ixy="0" ixz="0" iyy="0.00547" iyz="0" izz="0.012023"/>
     </inertial>
@@ -53,8 +53,8 @@
       <surface>
         <friction>
           <ode>
-            <mu>0</mu>
-            <mu2>0</mu2>
+            <mu>0.0</mu>
+            <mu2>0.0</mu2>
             <slip1>0.0</slip1>
             <slip2>0.0</slip2>
           </ode>
@@ -108,8 +108,8 @@
      <surface>
         <friction>
           <ode>
-            <mu>0.01</mu>
-            <mu2>0.01</mu2>
+            <mu>0.02</mu>
+            <mu2>0.02</mu2>
           </ode>
         </friction>
       </surface>
@@ -152,8 +152,8 @@
          <surface>
         <friction>
           <ode>
-            <mu>0.01</mu>
-            <mu2>0.01</mu2>
+            <mu>0.02</mu>
+            <mu2>0.02</mu2>
           </ode>
         </friction>
       </surface>
