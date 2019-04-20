@@ -108,8 +108,8 @@
      <surface>
         <friction>
           <ode>
-            <mu>0.02</mu>
-            <mu2>0.02</mu2>
+            <mu>0.03</mu>
+            <mu2>0.03</mu2>
           </ode>
         </friction>
       </surface>
@@ -152,8 +152,8 @@
          <surface>
         <friction>
           <ode>
-            <mu>0.02</mu>
-            <mu2>0.02</mu2>
+            <mu>0.03</mu>
+            <mu2>0.03</mu2>
           </ode>
         </friction>
       </surface>
@@ -223,7 +223,7 @@
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>base_link_simulated</robotBaseFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
     </plugin>
   </gazebo>
 
