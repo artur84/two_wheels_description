@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="2wheels" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  
+
   <!-- Chassis link -->
   <link name="base_link">
     <!-- pose and inertial -->
@@ -25,7 +25,7 @@
       <material name="blue"/> <!-- This is only for Rviz visualization -->
     </visual>
   </link>
-  
+
   <!-- caster joint -->
   <joint name="joint_caster" type="continuous">
     <origin rpy="0 0 0" xyz="0.085 -0.008 -0.015"/>
@@ -37,7 +37,7 @@
     <joint_properties damping="0.0" friction="0.01"/>
   </joint>
 
-  
+
   <!-- caster front link -->
   <link name="caster_wheel">
     <inertial>
@@ -77,14 +77,14 @@
     <material>Gazebo/Black</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
-  
-  
 
 
 
-  
-  
-  
+
+
+
+
+
   <!-- XXXXXXXXXXX -->
   <!-- Right wheel -->
   <!-- XXXXXXXXXXX -->
@@ -127,7 +127,7 @@
     </visual>
   </link>
 
-   
+
   <!-- XXXXXXXXXXX -->
   <!-- LEFT wheel -->
   <!-- XXXXXXXXXXX -->
@@ -171,8 +171,8 @@
         </visual>
   </link>
 
-  
- 
+
+
 
 
   <!-- laser link -->
@@ -182,7 +182,7 @@
       <mass value="0.25" />
       <inertia ixx="0.000208333" ixy="0" ixz="0" iyy="0.000208333" iyz="0" izz="0.0003125"/>
     </inertial>
-    
+
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -190,7 +190,7 @@
       </geometry>
       <material name="white" />
     </visual>
-    
+
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -204,7 +204,7 @@
 
   <!-- joint to attach the laser to the chassis -->
   <joint name="joint_base_laser_link" type="fixed">
-    <origin xyz="0.0 0 0.085" rpy="0 0.04 0"/>
+    <origin xyz="0.0 0 0.085" rpy="0 0.0 0"/>
     <parent link="base_link"/>
     <child link="base_laser_link"/>
   </joint>
@@ -212,7 +212,7 @@
   <!-- Plugin for the wheels -->
   <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
-      <legacyMode>true</legacyMode> 
+      <legacyMode>true</legacyMode>
       <alwaysOn>true</alwaysOn>
       <updateRate>100</updateRate>
       <leftJoint>joint_right_wheel</leftJoint>
@@ -291,10 +291,10 @@
     <gazebo reference="arm_base_link"> <!--Color for the arm_link_01 -->
       <material>Gazebo/Red</material>
     </gazebo>
- 
- 
- 
- 
+
+
+
+
     <!--Joint between base and link 1 -->
     <joint name="arm_joint_01" type="revolute">
         <axis xyz="0 0 1"/>
@@ -326,7 +326,7 @@
     <gazebo reference="arm_link_01"> <!--Color for the arm_link_01 -->
       <material>Gazebo/Orange</material>
     </gazebo>
-    
+
     <!-- Joint 02: between link1 and link2  -->
     <joint name="arm_joint_02" type="revolute">
         <axis xyz="0 0 1"/>
@@ -358,7 +358,7 @@
     <gazebo reference="arm_link_02"> <!--Color for the arm_link_01 -->
       <material>Gazebo/Orange</material>
     </gazebo>
-    
+
 <!-- Joint 3: between link2 and link3 -->
     <joint name="arm_joint_03" type="revolute">
         <axis xyz="0  0  1"/>
@@ -367,7 +367,7 @@
         <parent link="arm_link_02"/>
         <child link="arm_link_03"/>
     </joint>
-    
+
     <!-- 3rd link of the arm -->
     <link name="arm_link_03">
          <inertial>
@@ -391,7 +391,7 @@
     <gazebo reference="arm_link_03"> <!--Color for the arm_link_01 -->
       <material>Gazebo/Orange</material>
     </gazebo>
-    
+
     <!-- Joint 4: between link3 and link4 -->
     <joint name="arm_joint_04" type="revolute">
         <axis xyz="0 0 1"/>
@@ -400,7 +400,7 @@
         <parent link="arm_link_03"/>
         <child link="arm_link_04"/>
     </joint>
-     
+
     <!-- Fourth link of the arm (base of the gripper)-->
     <link name="arm_link_04">
          <inertial>
@@ -424,7 +424,7 @@
     <gazebo reference="arm_link_04"> <!--Color for the arm_link_01 -->
       <material>Gazebo/Black</material>
     </gazebo>
-    
+
 
 
 <!-- GRIPPER STARTS HERE -->
@@ -439,14 +439,14 @@
   <!--  right Grip link sub -->
   <link name="right_grip_link">
     <collision>
-  <origin xyz="0 0 0.005" rpy="1.5707 3.14159 3.14159"/> 
+  <origin xyz="0 0 0.005" rpy="1.5707 3.14159 3.14159"/>
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="0 0 0.005" rpy="1.5707 3.14159 3.14159"/> 
+      <origin xyz="0 0 0.005" rpy="1.5707 3.14159 3.14159"/>
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.0005 0.0005 0.0005"/>
       </geometry>
@@ -464,7 +464,7 @@
       <material>Gazebo/Gold</material>
     </gazebo>
 
- 
+
 <!--  LEFT Grip joint -->
   <joint name="left_grip_joint" type="prismatic">
     <parent link="arm_link_04"/>
@@ -483,7 +483,7 @@
     </collision>
 
     <visual>
-     <origin xyz="0 0 0.005" rpy="1.5707 0 0 "/> 
+     <origin xyz="0 0 0.005" rpy="1.5707 0 0 "/>
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.0005 0.0005 0.0005"/>
       </geometry>
@@ -501,7 +501,7 @@
       <material>Gazebo/Gold</material>
     </gazebo>
 
-  
+
 
 <!-- Transmission 1 -->
   <transmission name="arm_joint_01_trans">
@@ -527,7 +527,7 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  
+
   <!-- Transmission 3 -->
   <transmission name="arm_joint_03_trans">
     <type>transmission_interface/SimpleTransmission</type>
@@ -612,7 +612,7 @@
   <gazebo reference="camera1_link"> <!--Color for the camera1_link -->
       <material>Gazebo/Black</material>
   </gazebo>
-  
+
   <!-- Transmission camera -->
   <transmission name="camera1_tran">
     <type>transmission_interface/SimpleTransmission</type>
@@ -670,9 +670,9 @@
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/two_wheels_robot</robotNamespace>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-      <legacyModeNS>true</legacyModeNS> 
+      <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
 
-    
+
 </robot>
