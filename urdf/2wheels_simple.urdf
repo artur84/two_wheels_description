@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="2wheels" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  
+
   <!-- Chassis link -->
   <link name="base_link">
     <!-- pose and inertial -->
@@ -25,7 +25,7 @@
       <material name="blue"/> <!-- This is only for Rviz visualization -->
     </visual>
   </link>
-  
+
   <!-- caster joint -->
   <joint name="joint_caster" type="continuous">
     <origin rpy="0 0 0" xyz="0.085 -0.008 -0.015"/>
@@ -37,7 +37,7 @@
     <joint_properties damping="0.0" friction="0.01"/>
   </joint>
 
-  
+
   <!-- caster front link -->
   <link name="caster_wheel">
     <inertial>
@@ -77,20 +77,20 @@
     <material>Gazebo/Black</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
-  
-  
 
 
 
-  
-  
-  
+
+
+
+
+
   <!-- XXXXXXXXXXX -->
   <!-- Right wheel -->
   <!-- XXXXXXXXXXX -->
   <!-- Joint between right wheel and chassis -->
   <joint name="joint_right_wheel" type="continuous">
-    <origin rpy="-1.5707 0  0" xyz="-0.0572 -0.11 0.012"/>
+    <origin rpy="-1.57079632 0  0" xyz="-0.0572 -0.11 0.006"/>
     <!--origin rpy="0 1.570 0" xyz="0.11 -0.057 0.012"/-->
     <child link="link_right_wheel"/>
     <parent link="base_link"/>
@@ -127,14 +127,14 @@
     </visual>
   </link>
 
-   
+
   <!-- XXXXXXXXXXX -->
   <!-- LEFT wheel -->
   <!-- XXXXXXXXXXX -->
    <!-- Joint between LEFT wheel and chassis -->
   <joint name="joint_left_wheel" type="continuous">
         <!-- Previous  xyz="-0.095 -0.055 0.01 -->
-        <origin rpy="1.5707 0  0" xyz="-0.0572 0.11  0.012"/>
+        <origin rpy="1.57079632 0  0" xyz="-0.0572 0.11  0.006"/>
         <!--origin rpy="0 -1.570 0" xyz="-0.11 -0.057 0.012"/--> <!-- PAY ATTENTION NEGATIVE 'y' -->
         <child link="link_left_wheel"/>
         <parent link="base_link"/>
@@ -171,8 +171,8 @@
         </visual>
   </link>
 
-  
- 
+
+
 
 
   <!-- laser link -->
@@ -182,7 +182,7 @@
       <mass value="0.25" />
       <inertia ixx="0.000208333" ixy="0" ixz="0" iyy="0.000208333" iyz="0" izz="0.0003125"/>
     </inertial>
-    
+
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -190,7 +190,7 @@
       </geometry>
       <material name="white" />
     </visual>
-    
+
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -204,7 +204,7 @@
 
   <!-- joint to attach the laser to the chassis -->
   <joint name="joint_base_laser_link" type="fixed">
-    <origin xyz="0.0 0 0.085" rpy="0 0.04 0"/>
+    <origin xyz="0.0 0 0.085" rpy="0 0.0 0"/>
     <parent link="base_link"/>
     <child link="base_laser_link"/>
   </joint>
@@ -212,7 +212,7 @@
   <!-- Plugin for the wheels -->
   <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
-      <legacyMode>true</legacyMode> 
+      <legacyMode>true</legacyMode>
       <alwaysOn>true</alwaysOn>
       <updateRate>100</updateRate>
       <leftJoint>joint_right_wheel</leftJoint>
@@ -231,7 +231,7 @@
    <gazebo reference="base_laser_link">
     <sensor type="ray" name="head_rplidar">
       <pose>0 0 0 0 0 0</pose>
-      <visualize>false</visualize>
+      <visualize>true</visualize>
       <update_rate>10</update_rate><!--10 hz as the RP lidar-->
       <ray>
         <scan>
@@ -261,7 +261,7 @@
   </gazebo>
 
 
-    
+
 
 
   <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -298,7 +298,7 @@
   <gazebo reference="camera1_link"> <!--Color for the camera1_link -->
       <material>Gazebo/Black</material>
   </gazebo>
-  
+
   <!-- Transmission camera -->
   <transmission name="camera1_tran">
     <type>transmission_interface/SimpleTransmission</type>
@@ -356,9 +356,9 @@
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/two_wheels_robot</robotNamespace>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-      <legacyModeNS>true</legacyModeNS> 
+      <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
 
-    
+
 </robot>
