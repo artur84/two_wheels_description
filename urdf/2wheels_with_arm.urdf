@@ -14,12 +14,13 @@
     <collision name="collision_chassis">
       <origin rpy=" 0 0 0" xyz="0.01 0 0.03"/>
       <geometry>
-        <box size="0.18 0.2 0.06"/> <!-- ancho, largo, alto -->
+        <box size="0.18 0.2 0.05"/> <!-- ancho, largo, alto -->
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 -1.57079632" xyz="0.0 0 0.0"/>
       <geometry>
+
         <mesh filename="package://two_wheels_description/meshes/robotmodel.dae"/>
       </geometry>
       <material name="blue"/> <!-- This is only for Rviz visualization -->
@@ -28,7 +29,7 @@
 
   <!-- caster joint -->
   <joint name="joint_caster" type="continuous">
-    <origin rpy="0 0 0" xyz="0.085 -0.008 -0.009"/>
+    <origin rpy="0 0 0" xyz="0.085 -0.008 -0.032"/>
     <!--origin rpy="0 0 0" xyz="0.008 0.085 -0.015"/-->
     <child link="caster_wheel"/>
     <parent link="base_link"/>
@@ -48,7 +49,7 @@
     <collision name="caster_front_collision">
       <origin rpy=" 0 0 0" xyz="0.0 0 0"/>
       <geometry>
-        <sphere radius="0.0051"/>
+        <sphere radius="0.005"/>
       </geometry>
       <surface>
         <friction>
@@ -90,7 +91,7 @@
   <!-- XXXXXXXXXXX -->
   <!-- Joint between right wheel and chassis -->
   <joint name="joint_right_wheel" type="continuous">
-    <origin rpy="-1.5707 0  0" xyz="-0.0572 -0.11 0.012"/>
+    <origin rpy="-1.5707 0  0" xyz="-0.0572 -0.11 -0.0125"/>
     <!--origin rpy="0 1.570 0" xyz="0.11 -0.057 0.012"/-->
     <child link="link_right_wheel"/>
     <parent link="base_link"/>
@@ -134,7 +135,7 @@
    <!-- Joint between LEFT wheel and chassis -->
   <joint name="joint_left_wheel" type="continuous">
         <!-- Previous  xyz="-0.095 -0.055 0.01 -->
-        <origin rpy="1.5707 0  0" xyz="-0.0572 0.11  0.012"/>
+        <origin rpy="1.5707 0  0" xyz="-0.0572 0.11  -0.0125"/>
         <!--origin rpy="0 -1.570 0" xyz="-0.11 -0.057 0.012"/--> <!-- PAY ATTENTION NEGATIVE 'y' -->
         <child link="link_left_wheel"/>
         <parent link="base_link"/>
