@@ -231,7 +231,7 @@
    <gazebo reference="base_laser_link">
     <sensor type="ray" name="head_rplidar">
       <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
+      <visualize>false</visualize>
       <update_rate>10</update_rate><!--10 hz as the RP lidar-->
       <ray>
         <scan>
