@@ -34,8 +34,8 @@
     <child link="caster_wheel"/>
     <parent link="base_link"/>
     <axis rpy="0 0 0" xyz="0 0 1"/>
-    <limit effort="1000" velocity="10"/>
-    <joint_properties damping="0.0" friction="0.01"/>
+    <limit effort="10" velocity="10"/>
+    <joint_properties damping="0.0" friction="0.00"/>
   </joint>
 
 
@@ -56,8 +56,8 @@
           <ode>
             <mu>0.0</mu>
             <mu2>0.0</mu2>
-            <slip1>0.0</slip1>
-            <slip2>0.0</slip2>
+            <slip1>1.10</slip1>
+            <slip2>1.10</slip2>
           </ode>
         </friction>
       </surface>
@@ -72,7 +72,7 @@
   <gazebo reference="caster_wheel">
     <mu1 value="0.0"/>
     <mu2 value="0.0"/>
-    <kp value="10000000.0"/>
+    <kp value="10.0"/>
     <kd value="1.0"/>
     <fdir1 value="0 0 0"/>
     <material>Gazebo/Black</material>
@@ -109,8 +109,8 @@
      <surface>
         <friction>
           <ode>
-            <mu>0.03</mu>
-            <mu2>0.03</mu2>
+            <mu>2</mu>
+            <mu2>2</mu2>
           </ode>
         </friction>
       </surface>
@@ -153,8 +153,8 @@
          <surface>
         <friction>
           <ode>
-            <mu>0.03</mu>
-            <mu2>0.03</mu2>
+            <mu>2</mu>
+            <mu2>2</mu2>
           </ode>
         </friction>
       </surface>
@@ -210,21 +210,26 @@
     <child link="base_laser_link"/>
   </joint>
 
-  <!-- Plugin for the wheels -->
+  <!-- Plugin for the wheels differential drive controller speed -->
   <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <!--robotNamespace>/two_wheels_robot</robotNamespace--> <!-- use it to have multiple robots-->
       <legacyMode>true</legacyMode>
       <alwaysOn>true</alwaysOn>
       <updateRate>100</updateRate>
-      <leftJoint>joint_right_wheel</leftJoint>
-      <rightJoint>joint_left_wheel</rightJoint>
+      <leftJoint>joint_left_wheel</leftJoint>
+      <rightJoint>joint_right_wheel</rightJoint>
       <wheelSeparation>0.22</wheelSeparation>
       <wheelDiameter>0.025</wheelDiameter>
-      <torque>4000</torque>
+      <torque>40000</torque>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
       <robotBaseFrame>base_link_simulated</robotBaseFrame>
+      <!-- Optional-->
+      <publishWheelTF>true</publishWheelTF>
+      <publishOdomTF>true</publishOdomTF>
+      <wheelTorque>5000</wheelTorque>
     </plugin>
   </gazebo>
 
