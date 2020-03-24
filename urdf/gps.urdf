@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+  <robot name="2wheels" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- BASE-FOOTPRINT -->
+    <!-- base_footprint is a fictitious link(frame) that is on the ground -->
+    <link name="gps_base">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.25" />
+            <inertia ixx="0.000208333" ixy="0" ixz="0" iyy="0.000208333" iyz="0" izz="0.0003125"/>
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <cylinder radius="0.05" length="0.05"/>
+            </geometry>
+            <material name="white" />
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+            <cylinder radius="0.05" length="0.05"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="gps_base">
+        <turnGravityOff>false</turnGravityOff>
+        <material>Gazebo/Black</material>
+    </gazebo>
+ 
+    
+    <gazebo>
+    <plugin name="novatel_gps_sim" filename="libhector_gazebo_ros_gps.so">
+    <!-- To use this plugin you ned to have installed http://wiki.ros.org/hector_gazebo_plugins   sudo apt-get install ros-melodic-hector-gazebo-plugins -->
+      <alwaysOn>1</alwaysOn>
+      <updateRate>10.0</updateRate>
+      <bodyName>gps_base</bodyName>
+      <topicName>fix</topicName>
+      <velocityTopicName>fix_velocity</velocityTopicName>
+      <drift>5.0 5.0 5.0</drift>
+      <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
+      <velocityDrift>0 0 0</velocityDrift>
+      <velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>
+      <!-- coordinates for itesm campus will be considered as the 
+      center of gazebo world lat: 20.614414,long:  -100.403293-->
+      <referenceLatitude>20.614414</referenceLatitude>
+      <referenceLongitude>-100.403293</referenceLongitude>
+    </plugin>
+  </gazebo>
+</robot>
