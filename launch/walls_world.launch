@@ -15,7 +15,7 @@
   </include>
 
   
-  <include file="$(find two_wheels_description)/launch/spawn.launch"/>
+  <include file="$(find two_wheels_description)/launch/spawn_simple.launch"/>
   
     
   
