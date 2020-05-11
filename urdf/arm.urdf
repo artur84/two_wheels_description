@@ -42,7 +42,7 @@
     <!--Joint between base and link 1 -->
     <joint name="arm_joint_01" type="revolute">
         <axis xyz="0 0 1"/>
-        <limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="1.0"/>
+        <limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="2.0"/>
         <origin rpy="0 0 0" xyz="0 0 0.1"/>
         <parent link="base_link"/>
         <child link="arm_link_01"/>
@@ -75,7 +75,7 @@
     <!-- Joint 02: between link1 and link2  -->
     <joint name="arm_joint_02" type="revolute">
         <axis xyz="0 0 1"/>
-        <limit effort="10000.0" lower="-0.1" upper="1.57079632" velocity="1.0"/>
+        <limit effort="10000.0" lower="-0.1" upper="1.57079632" velocity="2.0"/>
         <origin rpy="1.57079632 0 0" xyz="0 0 0.5"/>
         <parent link="arm_link_01"/>
         <child link="arm_link_02"/>
@@ -108,7 +108,7 @@
 <!-- Joint 3: between link2 and link3 -->
     <joint name="arm_joint_03" type="revolute">
         <axis xyz="0  0  1"/>
-        <limit effort="100000.0" lower="-1.57079632" upper="1.57079632" velocity="1.0"/>
+        <limit effort="100000.0" lower="-1.57079632" upper="1.57079632" velocity="2.0"/>
         <origin rpy="0 0 0" xyz="0.6 0 0"/>
         <parent link="arm_link_02"/>
         <child link="arm_link_03"/>
@@ -147,10 +147,11 @@
     <!-- Joint 4: between link3 and link4 -->
     <joint name="arm_joint_04" type="revolute">
         <axis xyz="0 0 1"/>
-        <limit effort="100.0" lower="-1.8" upper="1.8" velocity="0.5"/>
+        <limit effort="100000.0" lower="-3.1416" upper="3.1416" velocity="2.0"/>
         <origin rpy="0 1.570796 0" xyz="0.6 0 0.0"/>
         <parent link="arm_link_03"/>
         <child link="gripper_base"/>
+        <dynamics damping="0.1"/>
     </joint>
 
     <!-- Fourth link of the arm (base of the gripper)-->
@@ -163,13 +164,13 @@
         <collision>
             <origin rpy="0 0 0 " xyz="0 0 0.0" />
             <geometry>
-                <box size="0.8 0.4 0.2  " />
+                <box size="0.2 0.05 0.01  " />
             </geometry>
         </collision>
         <visual>
             <origin rpy="0 0 0 " xyz="0 0 0.00" />
             <geometry>
-                 <box size="0.2 0.22 0.06 " />
+                 <box size="0.2 0.05 0.01  " />
             </geometry>
         </visual>
     </link>
@@ -182,7 +183,7 @@
     <child link="right_grip_link"/>
     <origin  xyz="0.0 0 0" rpy="0 -1.570796 0"/>
     <axis xyz="0 0 1"/>
-    <limit velocity="0.4" effort="100000" lower="0" upper="0.1" />
+    <limit velocity="0.4" effort="100000" lower="0" upper="0.05" />
   </joint>
   <!--  right Grip link sub -->
   <link name="right_grip_link">
@@ -196,7 +197,7 @@
     <visual>
       <origin xyz="0 0 0.05" rpy="1.5707 3.14159 3.14159"/>
       <geometry>
-        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.005 0.005 0.005"/>
+        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
 
@@ -231,9 +232,9 @@
     </collision>
 
     <visual>
-     <origin xyz="0 0 0.005" rpy="1.5707 0 0 "/>
+     <origin xyz="0 0 0.05" rpy="1.5707 0 0 "/>
       <geometry>
-        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.005 0.005 0.005"/>
+        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
 
