@@ -1,0 +1,422 @@
+<?xml version="1.0"?>
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <link name="world"/>
+
+ <!-- ARM DEFINITION STARTS HERE -->
+  <!-- Joint: This will attach the arm to the base_link -->
+  <joint name="world_to_base" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="world"/>
+    <child  link="base_link"/>
+  </joint>
+
+    <!-- base of the arm -->
+    <link name="base_link">
+        <inertial>
+            <mass value="0.05"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.000021667" ixy="0" ixz="0" iyy="0.000021667" iyz="0" izz="0.000021667"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0 " xyz="0 0 0.015" />
+            <geometry>
+                <box size="0.05 0.05 0.03" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin rpy="0 0 0 " xyz="0 0 0.015" />
+            <geometry>
+                <box size="0.05 0.05 0.03" />
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="base_link"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Red</material>
+    </gazebo>
+
+
+
+
+    <!--Joint between base and link 1 -->
+    <joint name="arm_joint_01" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.2"/>
+        <origin rpy="0 0 0" xyz="0 0 0.03"/>
+        <parent link="base_link"/>
+        <child link="arm_link_01"/>
+    </joint>
+    <!-- First link of the arm -->
+    <link name="arm_link_01">
+         <inertial>
+            <mass value="0.0025"/>
+            <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+            <inertia ixx="0.0000050279" ixy="0" ixz="0" iyy="0.0000050279" iyz="0" izz="0.0000035225"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0 " xyz="0 0 0.03" />
+            <geometry>
+                <cylinder radius="0.017" length="0.06"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin rpy="0 0 0 " xyz="0 0 0.03" />
+            <geometry>
+                <cylinder radius="0.017" length="0.06"/>
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="arm_link_01"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <!-- Joint 02: between link1 and link2  -->
+    <joint name="arm_joint_02" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="10000.0" lower="-0.1" upper="1.5707" velocity="0.2"/>
+        <origin rpy="1.5707 0 0" xyz="0 0 0.05"/>
+        <parent link="arm_link_01"/>
+        <child link="arm_link_02"/>
+    </joint>
+    <!-- Second link of the arm -->
+    <link name="arm_link_02">
+         <inertial>
+            <mass value="0.0025"/>
+            <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+            <inertia ixx="0.0000050279" ixy="0" ixz="0" iyy="0.0000050279" iyz="0" izz="0.0000035225"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0 " xyz="0.05 0 0.0" />
+            <geometry>
+                <box size="0.1 0.03 0.02" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin rpy="0 0 0 " xyz="0.05 0 0.0" />
+            <geometry>
+                <box size="0.1 0.03 0.02" />
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="arm_link_02"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+<!-- Joint 3: between link2 and link3 -->
+    <joint name="arm_joint_03" type="revolute">
+        <axis xyz="0  0  1"/>
+        <limit effort="10000.0" lower="-0.1" upper="1.5707" velocity="0.2"/>
+        <origin rpy="0 0 0" xyz="0.1 0 0"/>
+        <parent link="arm_link_02"/>
+        <child link="arm_link_03"/>
+    </joint>
+
+    <!-- 3rd link of the arm -->
+    <link name="arm_link_03">
+         <inertial>
+            <mass value="0.0025"/>
+            <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+            <inertia ixx="0.0000050279" ixy="0" ixz="0" iyy="0.0000050279" iyz="0" izz="0.0000035225"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0 " xyz="0.05 0 0" />
+            <geometry>
+                <box size="0.1 0.03 0.02" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin rpy="0 0 0 " xyz="0.05 0 0" />
+            <geometry>
+                <box size="0.1 0.03 0.02" />
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="arm_link_03"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <!-- Joint 4: between link3 and link4 -->
+    <joint name="arm_joint_04" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="10000.0" lower="-1.8" upper="1.8" velocity="0.5"/>
+        <origin rpy="0 1.570796 0" xyz="0.1 0 0.0"/>
+        <parent link="arm_link_03"/>
+        <child link="arm_link_04"/>
+    </joint>
+
+    <!-- Fourth link of the arm (base of the gripper)-->
+    <link name="arm_link_04">
+         <inertial>
+            <mass value="0.0025"/>
+            <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
+            <inertia ixx="0.0000050279" ixy="0" ixz="0" iyy="0.0000050279" iyz="0" izz="0.0000035225"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0 " xyz="0 0 0.0" />
+            <geometry>
+                <box size="0.08 0.04 0.02  " />
+            </geometry>
+        </collision>
+        <visual>
+            <origin rpy="0 0 0 " xyz="0 0 0.00" />
+            <geometry>
+                 <box size="0.1 0.022 0.006 " />
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="arm_link_04"> <!--Color for the arm_link_01 -->
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+
+
+<!-- GRIPPER STARTS HERE -->
+ <!--  right Grip joint sub -->
+  <joint name="right_grip_joint" type="prismatic">
+    <parent link="arm_link_04"/>
+    <child link="right_grip_link"/>
+    <origin  xyz="0.0 0 0" rpy="0 -1.570796 0"/>
+    <axis xyz="0 0 1"/>
+    <limit velocity="0.4" effort="100000" lower="0" upper="0.05" />
+  </joint>
+  <!--  right Grip link sub -->
+  <link name="right_grip_link">
+    <collision>
+  <origin xyz="0 0 0.005" rpy="1.5707 3.14159 3.14159"/>
+      <geometry>
+        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.005" rpy="1.5707 3.14159 3.14159"/>
+      <geometry>
+        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_r.stl" scale="0.0005 0.0005 0.0005"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.0001" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+  <gazebo reference="right_grip_link"> <!--Color  -->
+      <material>Gazebo/Gold</material>
+    </gazebo>
+
+
+<!--  LEFT Grip joint -->
+  <joint name="left_grip_joint" type="prismatic">
+    <parent link="arm_link_04"/>
+    <child link="left_grip_link"/>
+    <origin xyz="0.0 0.0 0" rpy="3.14159 -1.570796 0"/>
+    <axis xyz="0 0 1"/>
+    <limit velocity="0.4" effort="100000" lower="0" upper="0.05" />
+</joint>
+<!--  Grip link -->
+  <link name="left_grip_link">
+    <collision>
+     <origin xyz="0 0 0.005" rpy="1.5707 0 0 "/>    <!-- 'x' value indicates aperture of gripper -->
+      <geometry>
+        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+
+    <visual>
+     <origin xyz="0 0 0.005" rpy="1.5707 0 0 "/>
+      <geometry>
+        <mesh filename="package://two_wheels_description/meshes/chain_link_grip_l.stl" scale="0.0005 0.0005 0.0005"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.0001" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+   <gazebo reference="left_grip_link"> <!--Color  -->
+      <material>Gazebo/Gold</material>
+    </gazebo>
+
+
+
+<!-- Transmission 1 -->
+  <transmission name="arm_joint_01_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arm_joint_01">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+<!-- Transmission 2 -->
+  <transmission name="arm_joint_02_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arm_joint_02">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!-- Transmission 3 -->
+  <transmission name="arm_joint_03_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arm_joint_03">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+<!-- Transmission 4 -->
+  <transmission name="arm_joint_04_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arm_joint_04">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor4">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+<!-- Transmission 5 -->
+  <transmission name="left_grip_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_grip_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor5">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+<!-- Transmission 6 -->
+  <transmission name="right_grip_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_grip_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor6">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+
+
+  <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  Simulation of a camera:
+  XXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+  <joint name="camera1_joint"  type="revolute">
+        <axis xyz="0 1 0"/>
+        <limit effort="100000.0" lower="-0.8" upper="0.3" velocity="0.2"/>
+         <origin xyz="0.11 0.0 0.04" rpy="0 0 0"/>
+        <parent link="base_link"/>
+         <child link="camera1_link"/>
+    </joint>
+ <!-- Camera -->
+  <link name="camera1_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.03 0.05 0.03"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.03 0.05 0.03"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="0.04" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001" />
+    </inertial>
+  </link>
+  <gazebo reference="camera1_link"> <!--Color for the camera1_link -->
+      <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- Transmission camera -->
+  <transmission name="camera1_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="camera1_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_camera1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- Plugin for the camera -->
+   <gazebo reference="camera1_link">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="camera1">
+        <horizontal_fov>1</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera1_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>two_wheels_robot/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+<!-- ros_control Gazebo plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/robot</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+
+</robot>
