@@ -20,15 +20,15 @@
             <inertia ixx="0.000021667" ixy="0" ixz="0" iyy="0.000021667" iyz="0" izz="0.000021667"/>
         </inertial>
         <collision>
-            <origin rpy="0 0 0 " xyz="0 0 0.15" />
+            <origin rpy="0 0 0 " xyz="0 0 0.05" />
             <geometry>
-                <box size="0.5 0.5 0.3" />
+                <box size="0.5 0.5 0.1" />
             </geometry>
         </collision>
         <visual>
-            <origin rpy="0 0 0 " xyz="0 0 0.15" />
+            <origin rpy="0 0 0 " xyz="0 0 0.05" />
             <geometry>
-                <box size="0.5 0.5 0.3" />
+                <box size="0.5 0.5 0.1" />
             </geometry>
         </visual>
     </link>
@@ -43,7 +43,7 @@
     <joint name="arm_joint_01" type="revolute">
         <axis xyz="0 0 1"/>
         <limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="1.0"/>
-        <origin rpy="0 0 0" xyz="0 0 0.3"/>
+        <origin rpy="0 0 0" xyz="0 0 0.1"/>
         <parent link="base_link"/>
         <child link="arm_link_01"/>
          <dynamics damping="0.7"/>
@@ -81,7 +81,7 @@
         <child link="arm_link_02"/>
         <dynamics damping="0.7"/>
     </joint>
-    <!-- Second link of the arm -->
+    <!-- link2  -->
     <link name="arm_link_02">
          <inertial>
             <mass value="0.25"/>
@@ -89,15 +89,15 @@
             <inertia ixx="0.00050279" ixy="0" ixz="0" iyy="0.00050279" iyz="0" izz="0.00035225"/>
         </inertial>
         <collision>
-            <origin rpy="0 0 0 " xyz="0.5 0 0.0" />
+            <origin rpy="0 0 0 " xyz="0.3 0 0.0" />
             <geometry>
-                <box size="0.1 0.3 0.2" />
+                <box size="0.6 0.15 0.1" />
             </geometry>
         </collision>
         <visual>
-            <origin rpy="0 0 0 " xyz="0.5 0 0.0" />
+            <origin rpy="0 0 0 " xyz="0.3 0 0.0" />
             <geometry>
-                <box size="1.0 0.3 0.2" />
+                <box size="0.6 0.15 0.1" />
             </geometry>
         </visual>
     </link>
@@ -108,8 +108,8 @@
 <!-- Joint 3: between link2 and link3 -->
     <joint name="arm_joint_03" type="revolute">
         <axis xyz="0  0  1"/>
-        <limit effort="10000.0" lower="-1.57079632" upper="1.57079632" velocity="1.0"/>
-        <origin rpy="0 0 0" xyz="1 0 0"/>
+        <limit effort="100000.0" lower="-1.57079632" upper="1.57079632" velocity="1.0"/>
+        <origin rpy="0 0 0" xyz="0.6 0 0"/>
         <parent link="arm_link_02"/>
         <child link="arm_link_03"/>
         <dynamics damping="0.7"/>
@@ -123,20 +123,20 @@
             <inertia ixx="0.000050279" ixy="0" ixz="0" iyy="0.000050279" iyz="0" izz="0.000035225"/>
         </inertial>
         <collision>
-            <origin rpy="0 0 0 " xyz="0.5 0 0" />
+            <origin rpy="0 0 0 " xyz="0.3 0 0" />
             <geometry>
-                <box size="1.0 0.3 0.2" />
+                <box size="0.6 0.15 0.1" />
             </geometry>
         </collision>
         <visual>
-            <origin rpy="0 0 0 " xyz="0.5 0 0" />
+            <origin rpy="0 0 0 " xyz="0.3 0 0" />
             <geometry>
-                <box size="1 0.3 0.2" />
+                <box size="0.6 0.15 0.1" />
             </geometry>
         </visual>
     </link>
     <gazebo reference="arm_link_03"> <!--Color for the arm_link_01 -->
-      <material>Gazebo/Orange</material>
+      <material>Gazebo/Blue</material>
     </gazebo>
 
 
@@ -148,7 +148,7 @@
     <joint name="arm_joint_04" type="revolute">
         <axis xyz="0 0 1"/>
         <limit effort="100.0" lower="-1.8" upper="1.8" velocity="0.5"/>
-        <origin rpy="0 1.570796 0" xyz="1.0 0 0.0"/>
+        <origin rpy="0 1.570796 0" xyz="0.6 0 0.0"/>
         <parent link="arm_link_03"/>
         <child link="gripper_base"/>
     </joint>
@@ -329,10 +329,9 @@
   <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   Simulation of a camera:
   XXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
-  <joint name="camera1_joint"  type="revolute">
+  <joint name="camera1_joint"  type="fixed">
         <axis xyz="0 1 0"/>
-        <limit effort="100000.0" lower="-0.8" upper="0.3" velocity="0.2"/>
-         <origin xyz="0.11 0.0 0.04" rpy="0 0 0"/>
+        <origin xyz="1.1 0.0 1.9" rpy="0 1.5707 0"/>
         <parent link="base_link"/>
          <child link="camera1_link"/>
     </joint>
@@ -341,18 +340,18 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-    <box size="0.03 0.05 0.03"/>
+    <box size="0.1 0.15 0.1"/>
       </geometry>
     </collision>
 
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="0.03 0.05 0.03"/>
+        <box size="0.1 0.15 0.1"/>
       </geometry>
     </visual>
     <inertial>
-      <mass value="0.04" />
+      <mass value="0.00000001" />
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001" />
     </inertial>
@@ -361,17 +360,7 @@
       <material>Gazebo/Black</material>
   </gazebo>
 
-  <!-- Transmission camera -->
-  <transmission name="camera1_tran">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="camera1_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor_camera1">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
+
   <!-- Plugin for the camera -->
    <gazebo reference="camera1_link">
     <sensor type="camera" name="camera1">
@@ -399,7 +388,7 @@
       <plugin name="camera1_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>two_wheels_robot/camera1</cameraName>
+        <cameraName>camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera_link</frameName>
