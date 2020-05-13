@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
 <robot name="2wheels" xmlns:xacro="http://www.ros.org/wiki/xacro">
+ <!-- A dummy link to avoid KDL error  -->
+  <link name="dummy_base"/>
+  <joint name="dummy joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="dummy_base"/>
+    <child  link="base_link"/>
+  </joint>
 
   <!-- Chassis link -->
   <link name="base_link">

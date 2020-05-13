@@ -17,7 +17,7 @@
         camera1_position_controller" 
     />
     <!-- Combine joint values -->
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
         <remap from="joint_states" to="/two_wheels_robot/joint_states"/> 
     </node>     
 </launch>
