@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <robot name="2wheels" xmlns:xacro="http://www.ros.org/wiki/xacro">
  <!-- A dummy link to avoid KDL error  -->
-  <link name="dummy_base"/>
-  <joint name="dummy joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="dummy_base"/>
-    <child  link="base_link"/>
-  </joint>
-  
+ <link name="base_link"/>
+ <joint name="dummy joint" type="fixed">
+   <origin rpy="0 0 0" xyz="0 0 0"/>
+   <parent link="base_link"/>
+   <child  link="chassis_link"/>
+ </joint>
+
   <!-- Chassis link -->
-  <link name="base_link">
+  <link name="chassis_link">
     <!-- pose and inertial -->
     <pose>0 0 0 0 0 0</pose>
     <inertial>
@@ -39,7 +39,7 @@
     <origin rpy="0 0 0" xyz="0.085 -0.008 -0.032"/>
     <!--origin rpy="0 0 0" xyz="0.008 0.085 -0.015"/-->
     <child link="caster_wheel"/>
-    <parent link="base_link"/>
+    <parent link="chassis_link"/>
     <axis rpy="0 0 0" xyz="0 0 1"/>
     <limit effort="10" velocity="10"/>
     <joint_properties damping="0.0" friction="0.00"/>
@@ -101,7 +101,7 @@
     <origin rpy="-1.5707 0  0" xyz="-0.0572 -0.11 -0.0125"/>
     <!--origin rpy="0 1.570 0" xyz="0.11 -0.057 0.012"/-->
     <child link="link_right_wheel"/>
-    <parent link="base_link"/>
+    <parent link="chassis_link"/>
     <axis rpy="0 0 0" xyz="0 0 1"/>
     <limit effort="1000" velocity="100"/>
     <joint_properties damping="0.01" friction="0.01"/>
@@ -145,7 +145,7 @@
         <origin rpy="1.5707 0  0" xyz="-0.0572 0.11  -0.0125"/>
         <!--origin rpy="0 -1.570 0" xyz="-0.11 -0.057 0.012"/--> <!-- PAY ATTENTION NEGATIVE 'y' -->
         <child link="link_left_wheel"/>
-        <parent link="base_link"/>
+        <parent link="chassis_link"/>
         <axis rpy="0 0 0" xyz="0 0 -1"/>
         <limit effort="1000" velocity="100"/>
         <joint_properties damping="0.01" friction="0.01"/>
@@ -213,7 +213,7 @@
   <!-- joint to attach the laser to the chassis -->
   <joint name="joint_base_laser_link" type="fixed">
     <origin xyz="0.0 0 0.085" rpy="0 0.0 0"/>
-    <parent link="base_link"/>
+    <parent link="chassis_link"/>
     <child link="base_laser_link"/>
   </joint>
 
@@ -598,7 +598,7 @@
         <axis xyz="0 1 0"/>
         <limit effort="100000.0" lower="-0.8" upper="0.3" velocity="0.2"/>
          <origin xyz="0.11 0.0 0.04" rpy="0 0 0"/>
-        <parent link="base_link"/>
+        <parent link="chassis_link"/>
          <child link="camera1_link"/>
     </joint>
  <!-- Camera -->
