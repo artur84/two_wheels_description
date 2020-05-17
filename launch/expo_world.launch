@@ -2,10 +2,10 @@
 <!-- to the space we will have for the expo-->
 <!-- use it with: roslaunch two_wheels_description expo_world.launch-->
 <launch>
-    
+  <arg name="use_sim_time" default="true"/>
  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find two_wheels_description)/world/expo.world"/> 
+    <arg name="world_name" value="$(find two_wheels_description)/world/expo.world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -15,9 +15,9 @@
   </include>
 
   <!-- Puts the robot into the world -->
-  <include file="$(find two_wheels_description)/launch/spawn.launch"/>
-  
-    
-  
-          
+  <!--include file="$(find two_wheels_description)/launch/spawn.launch"/-->
+
+
+
+
 </launch>
