@@ -136,7 +136,7 @@
         </visual>
     </link>
     <gazebo reference="arm_link_03"> <!--Color for the arm_link_01 -->
-      <material>Gazebo/Blue</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
 
@@ -332,7 +332,7 @@
   XXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
   <joint name="camera1_joint"  type="fixed">
         <axis xyz="0 1 0"/>
-        <origin xyz="1.1 0.0 1.9" rpy="0 1.5707 0"/>
+        <origin xyz="1.0 0.0 1.9" rpy="0 1.5707 0"/>
         <parent link="base_link"/>
          <child link="camera1_link"/>
     </joint>
