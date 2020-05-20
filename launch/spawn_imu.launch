@@ -1,0 +1,16 @@
+<!-- This launches a single IMU in gazebo_ros
+        NOTE: GAZEBO must be running already before launching this-->
+
+<launch>
+    <!-- initial position for the GPS in the world-->
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0"/>
+    <arg name="use_sim_time" value="true"/>
+
+    <!-- Throws the gps to the simulated world -->
+    <param name="robot_description" command="cat '$(find two_wheels_description)/urdf/imu.urdf'" />
+    <node name="gps_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -param robot_description -model myimu -x $(arg x) -y $(arg y) -z $(arg z)" />
+
+</launch>
