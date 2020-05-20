@@ -219,17 +219,25 @@
   <!-- Plugin for the wheels -->
   <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
-      <legacyMode>true</legacyMode>
+      <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
-      <updateRate>50</updateRate>
+      <updateRate>40</updateRate>
       <leftJoint>joint_left_wheel</leftJoint>
       <rightJoint>joint_right_wheel</rightJoint>
       <wheelSeparation>0.22</wheelSeparation>
       <wheelDiameter>0.025</wheelDiameter>
-      <torque>4000</torque>
+      <!-- Wheel acceleration, in rad/s^2, defaults to 0.0 rad/s^2 -->
+      <wheelAcceleration>100.0</wheelAcceleration>
+      <!-- Maximum torque which the wheels can produce, in Nm, defaults to 5 Nm -->
+      <wheelTorque>4000</wheelTorque>
+       <!-- Topic to receive geometry_msgs/Twist message commands, defaults to `cmd_vel` -->
       <commandTopic>cmd_vel</commandTopic>
+      <!-- Odometry source, 0 for ENCODER, 1 for WORLD, defaults to WORLD -->
+      <odometrySource>1</odometrySource>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
+      <!-- Set to true to publish transforms for the wheel links, defaults to false -->
+      <publishWheelTF>true</publishWheelTF>
       <robotBaseFrame>base_link_simulated</robotBaseFrame>
     </plugin>
   </gazebo>
