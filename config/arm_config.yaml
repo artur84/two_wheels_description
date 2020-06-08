@@ -2,32 +2,32 @@ robot:
     joint_state_controller:
         type: joint_state_controller/JointStateController
         publish_rate: 50
-        
+
     joint1:
         type: effort_controllers/JointPositionController
         joint: arm_joint_01
         pid: {p: 2.0, i: 0.1, d: 0.0}
-    
+
     joint2:
         type: effort_controllers/JointPositionController
         joint: arm_joint_02
-        pid: {p: 2.0, i: 0.1, d: 0.0}
-    
+        pid: {p: 100.0, i: 1.0, d: 0.1}
+
     joint3:
         type: effort_controllers/JointPositionController
         joint: arm_joint_03
-        pid: {p: 1.0, i: 0.1, d: 0.0}
-    
+        pid: {p: 100.0, i: 1.0, d: 0.1}
+
     joint4:
         type: effort_controllers/JointPositionController
         joint: arm_joint_04
         pid: {p: 1.0, i: 0.1, d: 0.0}
-    
+
     rgrip:
         type: effort_controllers/JointPositionController
         joint: right_grip_joint
         pid: {p: 5.0, i: 0.1, d: 0.0}
-    
+
     lgrip:
         type: effort_controllers/JointPositionController
         joint: left_grip_joint

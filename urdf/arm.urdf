@@ -15,7 +15,7 @@
     <!-- base of the arm -->
     <link name="base_link">
         <inertial>
-            <mass value="0.05"/>
+            <mass value="5.0"/>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <inertia ixx="0.000021667" ixy="0" ixz="0" iyy="0.000021667" iyz="0" izz="0.000021667"/>
         </inertial>
@@ -46,14 +46,14 @@
         <origin rpy="0 0 0" xyz="0 0 0.1"/>
         <parent link="base_link"/>
         <child link="arm_link_01"/>
-         <dynamics damping="0.7"/>
+         <dynamics damping="0.4"/>
     </joint>
     <!-- First link of the arm -->
     <link name="arm_link_01">
          <inertial>
-            <mass value="0.25"/>
+            <mass value="0.025"/>
             <origin rpy="0 0 0" xyz="0.0 0 0.0"/>
-            <inertia ixx="0.00050279" ixy="0" ixz="0" iyy="0.00050279" iyz="0" izz="0.00035225"/>
+            <inertia ixx="0.000050279" ixy="0" ixz="0" iyy="0.000050279" iyz="0" izz="0.000035225"/>
         </inertial>
         <collision>
             <origin rpy="0 0 0 " xyz="0 0 0.3" />
@@ -75,11 +75,11 @@
     <!-- Joint 02: between link1 and link2  -->
     <joint name="arm_joint_02" type="revolute">
         <axis xyz="0 0 1"/>
-        <limit effort="10000.0" lower="-0.1" upper="1.57079632" velocity="2.0"/>
+        <limit effort="10000.0" lower="-0.7" upper="1.57079632" velocity="2.0"/>
         <origin rpy="1.57079632 0 0" xyz="0 0 0.5"/>
         <parent link="arm_link_01"/>
         <child link="arm_link_02"/>
-        <dynamics damping="0.7"/>
+        <dynamics damping="0.4"/>
     </joint>
     <!-- link2  -->
     <link name="arm_link_02">
