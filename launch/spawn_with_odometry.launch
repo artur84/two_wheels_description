@@ -1,0 +1,24 @@
+<!-- This launches the two wheels simulation in an empty gazebo world -->
+
+<launch>
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0.02"/>
+    <arg name="use_sim_time" default="true"/>
+
+    <param name="robot_description" command="cat '$(find two_wheels_description)/urdf/2wheels_with_odometry.urdf'" />
+
+    <rosparam file="$(find two_wheels_description)/config/motors_simple_config.yaml" command="load"/>
+
+    <node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -param robot_description -model mybot -x $(arg x) -y $(arg y) -z $(arg z)" />
+
+   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/two_wheels_robot"
+        args="joint_state_controller
+        camera1_position_controller"
+    />
+    <!-- Combine joint values -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <remap from="joint_states" to="/two_wheels_robot/joint_states"/>
+    </node>
+</launch>
