@@ -1,5 +1,18 @@
 <?xml version="1.0"?>
 <robot name="2wheels" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<material name="red">
+  <color rgba="1.0 0.0 0.0 1.0"/>
+</material>
+
+<material name="white">
+  <color rgba="1.0 1.0 1.0 1.0"/>
+</material>
+
+<material name="black">
+  <color rgba="0.0 0.0 0.0 1.0"/>
+</material>
+
  <!-- A dummy link to avoid KDL error  -->
   <link name="base_link"/>
   <joint name="dummy joint" type="fixed">
@@ -24,24 +37,38 @@
         <box size="0.18 0.2 0.06"/> <!-- ancho, largo, alto -->
       </geometry>
     </collision>
+
     <visual>
-      <origin rpy="0 0 -1.5708" xyz="0.0 0 0.0"/>
+      <origin rpy="0 0 0" xyz="0.01 0 0.03"/>
+      <geometry>
+        <box size="0.18 0.2 0.06"/> <!-- ancho, largo, alto -->
+      </geometry>
+      <material name="red"/> <!-- This is only for Rviz visualization -->
+    </visual>
+
+
+    <!--visual>
+      <origin rpy="0 0 -1.5708" xyz="0.0 0.01 0.0"/>
       <geometry>
         <mesh filename="package://two_wheels_description/meshes/robotmodel.dae"/>
       </geometry>
-      <material name="blue"/> <!-- This is only for Rviz visualization -->
-    </visual>
+    </visual-->
   </link>
+
+  <gazebo reference="chassis_link">
+    <material>Gazebo/Red</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
 
   <!-- caster joint -->
   <joint name="joint_caster" type="continuous">
-    <origin rpy="0 0 0" xyz="0.085 -0.008 -0.015"/>
+    <origin rpy="0 0 0" xyz="0.085 -0.008 -0.02"/>
     <!--origin rpy="0 0 0" xyz="0.008 0.085 -0.015"/-->
     <child link="caster_wheel"/>
     <parent link="chassis_link"/>
     <axis rpy="0 0 0" xyz="0 0 1"/>
-    <limit effort="1000" velocity="10"/>
-    <joint_properties damping="0.0" friction="0.01"/>
+    <!--limit effort="1000" velocity="10"/>
+    <joint_properties damping="0.0" friction="0.01"/-->
   </joint>
 
 
@@ -55,15 +82,15 @@
     <collision name="caster_front_collision">
       <origin rpy=" 0 0 0" xyz="0.0 0 0"/>
       <geometry>
-        <sphere radius="0.0051"/>
+        <sphere radius="0.01"/>
       </geometry>
       <surface>
         <friction>
           <ode>
             <mu>0.0</mu>
             <mu2>0.0</mu2>
-            <slip1>0.0</slip1>
-            <slip2>0.0</slip2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
           </ode>
         </friction>
       </surface>
@@ -71,8 +98,9 @@
     <visual name="caster_front_visual">
       <origin rpy=" 0 0 0" xyz="0.0 0 0"/>
       <geometry>
-        <sphere radius="0.005"/>
+        <sphere radius="0.01"/>
       </geometry>
+      <material name="black"/> <!-- This is only for Rviz visualization -->
     </visual>
   </link>
   <gazebo reference="caster_wheel">
@@ -123,14 +151,15 @@
     <collision name="link_right_wheel_collision">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.01" radius="0.025"/>
+         <cylinder length="0.01" radius="0.035"/>
       </geometry>
     </collision>
     <visual name="link_right_wheel_visual">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.001" radius="0.001"/>
+         <cylinder length="0.01" radius="0.035"/>
       </geometry>
+      <material name="black"/> <!-- This is only for Rviz visualization -->
     </visual>
   </link>
 
@@ -167,14 +196,15 @@
         <collision name="link_left_wheel_collision">
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <cylinder length="0.01" radius="0.025"/>
+            <cylinder length="0.01" radius="0.035"/>
           </geometry>
         </collision>
         <visual name="link_left_wheel_visual">
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <cylinder length="0.001" radius="0.001"/>
+            <cylinder length="0.01" radius="0.035"/>
           </geometry>
+          <material name="black"/> <!-- This is only for Rviz visualization -->
         </visual>
   </link>
 
@@ -206,7 +236,7 @@
     </collision>
   </link>
   <gazebo reference="base_laser_link"> <!--Color for the link -->
-      <material>Gazebo/Black</material>
+      <material>Gazebo/Blue</material>
   </gazebo>
 
   <!-- joint to attach the laser to the chassis -->
@@ -221,11 +251,11 @@
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
-      <updateRate>40</updateRate>
+      <updateRate>50</updateRate>
       <leftJoint>joint_left_wheel</leftJoint>
       <rightJoint>joint_right_wheel</rightJoint>
       <wheelSeparation>0.22</wheelSeparation>
-      <wheelDiameter>0.025</wheelDiameter>
+      <wheelDiameter>0.07</wheelDiameter>
       <!-- Wheel acceleration, in rad/s^2, defaults to 0.0 rad/s^2 -->
       <wheelAcceleration>100.0</wheelAcceleration>
       <!-- Maximum torque which the wheels can produce, in Nm, defaults to 5 Nm -->
@@ -294,7 +324,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-    <box size="0.03 0.05 0.03"/>
+        <box size="0.03 0.05 0.03"/>
       </geometry>
     </collision>
 
@@ -303,6 +333,7 @@
       <geometry>
         <box size="0.03 0.05 0.03"/>
       </geometry>
+      <material name="black"/> <!-- This is only for Rviz visualization -->
     </visual>
     <inertial>
       <mass value="0.04" />
