@@ -62,7 +62,7 @@
 
   <!-- caster joint -->
   <joint name="joint_caster" type="continuous">
-    <origin rpy="0 0 0" xyz="0.085 -0.008 -0.02"/>
+    <origin rpy="0 0 0" xyz="-0.075 0.0 -0.02"/>
     <!--origin rpy="0 0 0" xyz="0.008 0.085 -0.015"/-->
     <child link="caster_wheel"/>
     <parent link="chassis_link"/>
@@ -89,8 +89,8 @@
           <ode>
             <mu>0.0</mu>
             <mu2>0.0</mu2>
-            <slip1>1.0</slip1>
-            <slip2>1.0</slip2>
+            <slip1>0.0</slip1>
+            <slip2>0.0</slip2>
           </ode>
         </friction>
       </surface>
@@ -125,7 +125,7 @@
   <!-- XXXXXXXXXXX -->
   <!-- Joint between right wheel and chassis -->
   <joint name="joint_right_wheel" type="continuous">
-    <origin rpy="-1.57079632 0  0" xyz="-0.0572 -0.11 0.006"/>
+    <origin rpy="-1.57079632 0  0" xyz="0.0572 -0.11 0.006"/>
     <!--origin rpy="0 1.570 0" xyz="0.11 -0.057 0.012"/-->
     <child link="link_right_wheel"/>
     <parent link="chassis_link"/>
@@ -170,7 +170,7 @@
    <!-- Joint between LEFT wheel and chassis -->
   <joint name="joint_left_wheel" type="continuous">
         <!-- Previous  xyz="-0.095 -0.055 0.01 -->
-        <origin rpy="1.57079632 0  0" xyz="-0.0572 0.11  0.006"/>
+        <origin rpy="1.57079632 0  0" xyz="0.0572 0.11  0.006"/>
         <!--origin rpy="0 -1.570 0" xyz="-0.11 -0.057 0.012"/--> <!-- PAY ATTENTION NEGATIVE 'y' -->
         <child link="link_left_wheel"/>
         <parent link="chassis_link"/>
