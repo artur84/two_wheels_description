@@ -26,7 +26,7 @@
     <!-- pose and inertial -->
     <pose>0 0 0 0 0 0</pose>
     <inertial>
-      <mass value="6.0"/>
+      <mass value="0.4"/>
       <origin rpy="0 0 0" xyz="0.01 0 0.03"/>
       <inertia ixx="0.007" ixy="0" ixz="0" iyy="0.00547" iyz="0" izz="0.012023"/>
     </inertial>
@@ -216,7 +216,7 @@
   <link name="base_laser_link">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <mass value="0.25" />
+      <mass value="0.2" />
       <inertia ixx="0.000208333" ixy="0" ixz="0" iyy="0.000208333" iyz="0" izz="0.0003125"/>
     </inertial>
 
